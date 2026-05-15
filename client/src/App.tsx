@@ -26,8 +26,7 @@ function App() {
     if (roomCode) {
       socket.emit("leave_room", { roomCode, userId });
     }
-
-    localStorage.removeItem("userId");
+    localStorage.clear();
 
     setRoomCode(null);
     setPlayers([]);
@@ -43,19 +42,18 @@ function App() {
       setRoomCode(code);
       setIsHost(true);
       localStorage.setItem("roomCode", code);
-      localStorage.setItem("nickname", "Prowadzący");
+      localStorage.setItem("isHost", "true");
     });
 
     socket.on("join_success", ({ roomCode, nickname, isHost }) => {
-      console.log("SUKCES: ", roomCode);
       setRoomCode(roomCode);
       setIsHost(isHost || false);
       localStorage.setItem("roomCode", roomCode);
-      localStorage.setItem("nickname", nickname);
+      if (nickname) localStorage.setItem("nickname", nickname);
     });
 
     socket.on("rejoin_failed", () => {
-      localStorage.removeItem("roomCode");
+      localStorage.clear();
       setRoomCode(null);
     });
 
@@ -69,7 +67,7 @@ function App() {
     const savedRoomCode = localStorage.getItem("roomCode");
     const savedNickname = localStorage.getItem("nickname");
 
-    if (savedRoomCode && savedNickname) {
+    if (savedRoomCode) {
       socket.emit("rejoin_room", {
         roomCode: savedRoomCode,
         userId,
@@ -81,7 +79,7 @@ function App() {
       socket.off("room_created");
       socket.off("update_players");
       socket.off("join_success");
-      socket.off("rejoin_failed"); // Pamiętaj o tym
+      socket.off("rejoin_failed");
     };
   }, []);
 
