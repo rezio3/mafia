@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import type { Player } from "../utils/types";
@@ -34,9 +34,13 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
           {players.length < 1
             ? "---"
             : players.map((player: Player, index) => (
-                <span>
+                <Typography
+                  color={
+                    player.id === currentPlayer.id ? "primary" : "secondary"
+                  }
+                >
                   {index + 1}. {player.nickname}
-                </span>
+                </Typography>
               ))}
         </div>
       </div>

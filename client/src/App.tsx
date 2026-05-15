@@ -73,17 +73,28 @@ function App() {
       });
     }
 
+    socket.on("room_destroyed", (message) => {
+      alert(message);
+      localStorage.clear();
+      setRoomCode(null);
+      setPlayers([]);
+      setIsHost(false);
+      setCurrentPlayer(null);
+    });
+    socket.on("error", (msg) => {
+      alert(msg);
+      window.location.reload();
+    });
+
     return () => {
       socket.off("room_created");
       socket.off("update_players");
       socket.off("join_success");
       socket.off("rejoin_failed");
+      socket.off("room_destroyed");
+      socket.off("error");
     };
   }, []);
-
-  useEffect(() => {
-    console.log(roomCode);
-  }, [roomCode]);
 
   return (
     <ThemeProvider theme={theme}>
