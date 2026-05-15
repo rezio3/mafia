@@ -15,7 +15,7 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState<any>(null);
 
   const handleCreateRoom = () => {
-    socket.emit("create_room", { userId }); // Wysyłamy userId hosta!
+    socket.emit("create_room", { userId });
   };
 
   const handleJoinRoom = (code: string, nickname: string) => {
@@ -37,7 +37,6 @@ function App() {
   };
 
   useEffect(() => {
-    // 1. NAJPIERW USTAWIAMY NASŁUCHIWANIE
     socket.on("room_created", (code) => {
       setRoomCode(code);
       setIsHost(true);
@@ -63,7 +62,6 @@ function App() {
       if (me) setCurrentPlayer(me);
     });
 
-    // 2. DOPIERO NA KOŃCU ROBIMY REJOIN
     const savedRoomCode = localStorage.getItem("roomCode");
     const savedNickname = localStorage.getItem("nickname");
 
