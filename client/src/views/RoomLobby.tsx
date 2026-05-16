@@ -7,7 +7,6 @@ type RoomLobbyPropsType = {
   roomCode: string;
   players: Player[];
   isHost: boolean;
-  currentPlayer: Player;
   handleLeaveRoom: () => void;
 };
 
@@ -15,12 +14,13 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   roomCode,
   players,
   isHost,
-  currentPlayer,
   handleLeaveRoom,
 }) => {
   console.log(isHost);
   console.log(players);
-  console.log(currentPlayer);
+
+  const currentPlayerId = localStorage.getItem("userId");
+
   return (
     <Wrapper>
       <div className="d-flex flex-column align-items-center gap-1">
@@ -36,7 +36,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
             : players.map((player: Player, index) => (
                 <Typography
                   color={
-                    player.id === currentPlayer.id ? "primary" : "secondary"
+                    player.id === currentPlayerId ? "primary" : "secondary"
                   }
                 >
                   {index + 1}. {player.nickname}

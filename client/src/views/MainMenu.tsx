@@ -14,6 +14,23 @@ const MainMenu: React.FC<MainMenuPropsType> = ({
 }) => {
   const [inputCode, setInputCode] = useState("");
   const [nickname, setNickname] = useState("");
+  const [error, setError] = useState({ inputCodeError: "", nicknameError: "" });
+
+  const handleJoinRoomButton = () => {
+    let nicknameError = "";
+    let inputCodeError = "";
+    if (nickname === "") {
+      nicknameError = "Wprowadź swój nick";
+    }
+    if (inputCode === "") {
+      inputCodeError = "Wprowadź kod pokoju";
+    }
+    setError({ inputCodeError: inputCodeError, nicknameError: nicknameError });
+
+    if (inputCode && nickname) {
+      joinRoomOnClick(inputCode, nickname);
+    }
+  };
 
   return (
     <Wrapper>
@@ -27,16 +44,26 @@ const MainMenu: React.FC<MainMenuPropsType> = ({
         <TextField
           label="Twój Nick"
           variant="outlined"
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => {
+            setError({ ...error, nicknameError: "" });
+            setNickname(e.target.value);
+          }}
+          error={!!error.nicknameError}
+          helperText={error.nicknameError}
         />
         <TextField
           label="Kod"
           variant="outlined"
-          onChange={(e) => setInputCode(e.target.value.toUpperCase())}
+          onChange={(e) => {
+            setError({ ...error, inputCodeError: "" });
+            setInputCode(e.target.value.toUpperCase());
+          }}
+          error={!!error.inputCodeError}
+          helperText={error.inputCodeError}
         />
         <div className="mt-2" />
         <Button
-          onClick={() => joinRoomOnClick(inputCode, nickname)}
+          onClick={handleJoinRoomButton}
           variant="contained"
           color="primary"
         >

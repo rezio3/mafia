@@ -5,14 +5,16 @@ import { theme } from "./theme/ThemeProvider";
 import MainMenu from "./views/MainMenu";
 import socket from "./socket";
 import RoomLobby from "./views/RoomLobby";
-import { userId } from "./utils/uuidGenerator";
 import type { Player } from "./utils/types";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [roomCode, setRoomCode] = useState(null);
   const [players, setPlayers] = useState<Player[]>([]);
   const [isHost, setIsHost] = useState(false);
-  const [currentPlayer, setCurrentPlayer] = useState<any>(null);
+
+  const userId = localStorage.getItem("userId") || uuidv4();
+  localStorage.setItem("userId", userId);
 
   const handleCreateRoom = () => {
     socket.emit("create_room", { userId });
@@ -31,7 +33,6 @@ function App() {
     setRoomCode(null);
     setPlayers([]);
     setIsHost(false);
-    setCurrentPlayer(null);
 
     window.location.reload();
   };
@@ -58,8 +59,6 @@ function App() {
 
     socket.on("update_players", (playersList) => {
       setPlayers(playersList);
-      const me = playersList.find((p: any) => p.id === userId);
-      if (me) setCurrentPlayer(me);
     });
 
     const savedRoomCode = localStorage.getItem("roomCode");
@@ -79,7 +78,6 @@ function App() {
       setRoomCode(null);
       setPlayers([]);
       setIsHost(false);
-      setCurrentPlayer(null);
     });
     socket.on("error", (msg) => {
       alert(msg);
@@ -108,7 +106,6 @@ function App() {
           roomCode={roomCode}
           players={players}
           isHost={isHost}
-          currentPlayer={currentPlayer}
           handleLeaveRoom={handleLeaveRoom}
         />
       )}
