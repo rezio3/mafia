@@ -22,8 +22,28 @@ body {
   align-items: center;
 }
 
-.bg-card {
+.bg-player-list {
   background-color: #212336;
   padding: 8px 20px;
   border-radius: 15px;
+}
+
+.cards-selection-container {
+  max-width: 350px;
+}
+
+.role-card {
+  margin: 8px 0;
+  padding: 4px 8px;
+  width: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.card-selected {
+  background-color: #618833;
 }

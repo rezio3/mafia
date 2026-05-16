@@ -2,6 +2,7 @@ import { Button, Typography } from "@mui/material";
 import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import type { Player } from "../utils/types";
+import CardsSelection from "../components/CardsSelection";
 
 type RoomLobbyPropsType = {
   roomCode: string;
@@ -24,13 +25,18 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   return (
     <Wrapper>
       <div className="d-flex flex-column align-items-center gap-1">
+        {isHost && (
+          <Typography variant="h6" color="primary">
+            Jesteś prowadzącym
+          </Typography>
+        )}
         <Header variant="h4">Twój pokój: {roomCode}</Header>
         <Button onClick={handleLeaveRoom} variant="contained" color="secondary">
           Wyjdź z pokoju
         </Button>
         <div className="mt-2" />
         <Header variant="h6">Liczba graczy: {players.length}</Header>
-        <div className="d-flex flex-column w-100 bg-card">
+        <div className="d-flex flex-column w-100 bg-player-list">
           {players.length < 1
             ? "---"
             : players.map((player: Player, index) => (
@@ -43,6 +49,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
                 </Typography>
               ))}
         </div>
+        <CardsSelection />
       </div>
     </Wrapper>
   );
