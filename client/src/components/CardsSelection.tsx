@@ -1,17 +1,44 @@
 import { cards, type CardType } from "../utils/cards";
 import Card from "./Card";
+import socket from "../socket";
+import FractionColorLegend from "./FractionColorLegend";
+import Header from "./Header";
 
-const CardsSelection = () => {
+type CardsSelectionPropsType = {
+  selectedCards: string[];
+  isHost: boolean;
+  roomCode: string;
+};
+
+const CardsSelection: React.FC<CardsSelectionPropsType> = ({
+  selectedCards,
+  isHost,
+  roomCode,
+}) => {
+  const handleCardToggle = (cardName: string) => {
+    if (isHost) {
+      socket.emit("toggle_card", { roomCode, cardName });
+    }
+  };
   return (
-    <div className="cards-selection-container w-100 d-flex flex-wrap justify-content-between">
-      {cards.map((card) => (
-        <Card
-          card={card as CardType}
-          handleCardClick={() => {
-            console.log(card.name);
-          }}
-        />
-      ))}
+    <div className="d-flex flex-column align-items-center gap-1 mt-3">
+      <Header variant="h6">
+        Liczba wybranych kart: {selectedCards.length}
+      </Header>
+      <FractionColorLegend />
+      <div className="cards-selection-container">
+        {cards.map((card, index) => {
+          const isSelected = selectedCards.includes(card.name);
+          return (
+            <Card
+              card={card as CardType}
+              isSelected={isSelected}
+              handleCardClick={() => handleCardToggle(card.name)}
+              key={card.name + index}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

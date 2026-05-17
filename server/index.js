@@ -47,7 +47,9 @@ io.on("connection", (socket) => {
 
     socket.join(roomCode);
     io.to(roomCode).emit("update_players", room.players);
+    socket.emit("update_selected_cards", room.selectedCards || []);
     socket.emit("join_success", { roomCode, nickname, isHost: false });
+    console.log("AKTUALNY STAN BAZY (ROOMS):", JSON.stringify(rooms, null, 2));
   });
 
   // 3. Wyjście z pokoju
@@ -81,14 +83,68 @@ io.on("connection", (socket) => {
 
       socket.join(roomCode);
 
-      const response = { roomCode, isHost };
+      const response = { roomCode, isHost, gameStarted: room.gameStarted };
       if (player) response.nickname = player.nickname;
 
+      socket.emit("update_selected_cards", room.selectedCards || []);
       socket.emit("join_success", response);
       io.to(roomCode).emit("update_players", room.players);
     } else {
       socket.emit("rejoin_failed");
     }
+  });
+
+  // Zdarzenie wyboru karty przez prowadzącego
+  socket.on("toggle_card", ({ roomCode, cardName }) => {
+    const room = rooms[roomCode];
+    if (!room) return;
+
+    // Inicjalizujemy tablicę, jeśli jej jeszcze nie ma
+    if (!room.selectedCards) room.selectedCards = [];
+
+    const index = room.selectedCards.indexOf(cardName);
+    if (index === -1) {
+      // Jeśli karty nie ma na liście – dodajemy
+      room.selectedCards.push(cardName);
+    } else {
+      // Jeśli już była – usuwamy (odznaczenie)
+      room.selectedCards.splice(index, 1);
+    }
+
+    // Emitujemy do WSZYSTKICH w pokoju nową listę wybranych kart
+    io.to(roomCode).emit("update_selected_cards", room.selectedCards);
+    console.log("AKTUALNY STAN BAZY (ROOMS):", JSON.stringify(rooms, null, 2));
+  });
+
+  // 5. Rozpoczęcie gry i losowanie ról (Wersja bez walidacji)
+  socket.on("start_game", ({ roomCode }) => {
+    const room = rooms[roomCode];
+    if (!room) return; // Jeśli pokój jakimś cudem nie istnieje, po prostu przerywamy
+
+    // Klonujemy tablicę wybranych kart
+    const cardsToDistribute = [...(room.selectedCards || [])];
+
+    // Algorytm mieszania kart (Fisher-Yates Shuffle)
+    for (let i = cardsToDistribute.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cardsToDistribute[i], cardsToDistribute[j]] = [
+        cardsToDistribute[j],
+        cardsToDistribute[i],
+      ];
+    }
+
+    // Przypisujemy wymieszane karty do graczy
+    room.players.forEach((player, index) => {
+      player.role = cardsToDistribute[index];
+    });
+
+    room.gameStarted = true;
+
+    // Informujemy wszystkich w pokoju, że gra ruszyła
+    io.to(roomCode).emit("game_started", {
+      gameStarted: room.gameStarted,
+      players: room.players,
+    });
   });
 
   socket.on("disconnect", () => console.log("Rozłączono"));

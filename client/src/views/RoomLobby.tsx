@@ -3,12 +3,14 @@ import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import type { Player } from "../utils/types";
 import CardsSelection from "../components/CardsSelection";
+import socket from "../socket";
 
 type RoomLobbyPropsType = {
   roomCode: string;
   players: Player[];
   isHost: boolean;
   handleLeaveRoom: () => void;
+  selectedCards: string[];
 };
 
 const RoomLobby: React.FC<RoomLobbyPropsType> = ({
@@ -16,11 +18,17 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   players,
   isHost,
   handleLeaveRoom,
+  selectedCards,
 }) => {
-  console.log(isHost);
-  console.log(players);
-
   const currentPlayerId = localStorage.getItem("userId");
+  const handleStartGame = () => {
+    if (selectedCards.length === players.length) {
+      console.log("rozpoczynam gre");
+      socket.emit("start_game", { roomCode });
+    } else {
+      console.log("Liczba kart musi być taka sama jak liczba graczy.");
+    }
+  };
 
   return (
     <Wrapper>
@@ -38,18 +46,26 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
         <Header variant="h6">Liczba graczy: {players.length}</Header>
         <div className="d-flex flex-column w-100 bg-player-list">
           {players.length < 1
-            ? "---"
+            ? "Trochę tu pusto..."
             : players.map((player: Player, index) => (
                 <Typography
                   color={
                     player.id === currentPlayerId ? "primary" : "secondary"
                   }
+                  key={player.id}
                 >
                   {index + 1}. {player.nickname}
                 </Typography>
               ))}
         </div>
-        <CardsSelection />
+        <Button variant="contained" className="mt-3" onClick={handleStartGame}>
+          Rozpocznij grę
+        </Button>
+        <CardsSelection
+          selectedCards={selectedCards}
+          isHost={isHost}
+          roomCode={roomCode}
+        />
       </div>
     </Wrapper>
   );
