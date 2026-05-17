@@ -21,7 +21,7 @@ const PlayerGameView: React.FC<PlayerGameViewPropsType> = ({
       <Header variant="h5">{playerName} </Header>
       <Header variant="h6">Twoja funkcja to:</Header>
       <div className="mt-3" style={{ maxWidth: "400px", width: "90%" }}>
-        <Card card={card as CardType} isSelected={false} key={card.name} />
+        <Card card={card as CardType} isSelected={false} />
       </div>
     </>
   );

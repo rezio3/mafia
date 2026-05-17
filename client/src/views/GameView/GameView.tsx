@@ -19,7 +19,6 @@ const GameView: React.FC<GameViewPropsType> = ({
   const player = players.find((player) => player.id === currentPlayerId);
 
   const currentPlayerCard = player?.role;
-
   return (
     <Wrapper>
       <Button

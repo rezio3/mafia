@@ -31,7 +31,8 @@ export const cards = [
     name: "Szantażysta",
     fraction: RoleFraction.Mafia,
     note: "Szantażuje jedną osobę.",
-    description: "Na początku gry szantażuje jedną osobę.",
+    description:
+      "Pierwszej nocy wybiera jedną osobę, którą chce szantażować. Wskazana osoba budzi się i poznaję swojego szantażystę. Od tej pory musi go chronić do końca gry i nie moża głosować przeciwko niemu.",
   },
   {
     name: "Werbunek",

@@ -39,7 +39,6 @@ body {
 
 .role-card {
   width: 100%;
-  min-height: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,11 +64,19 @@ body {
 }
 
 .dot {
-  background-color: #fff;
   border-radius: 50%;
   width: 12px;
   height: 12px;
   margin-top: 4px;
   margin-right: 4px;
   margin-left: 8px;
+}
+
+.divider {
+  width: 100%;
+  margin: 12px 0;
+  border-bottom: 1px solid gray;
+}
+.divider:last-child {
+  display: none;
 }

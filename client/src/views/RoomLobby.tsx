@@ -22,7 +22,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
 }) => {
   const currentPlayerId = localStorage.getItem("userId");
   const handleStartGame = () => {
-    if (selectedCards.length === players.length) {
+    if (selectedCards.length === players.length && isHost) {
       console.log("rozpoczynam gre");
       socket.emit("start_game", { roomCode });
     } else {
@@ -58,9 +58,15 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
                 </Typography>
               ))}
         </div>
-        <Button variant="contained" className="mt-3" onClick={handleStartGame}>
-          Rozpocznij grę
-        </Button>
+        {isHost && (
+          <Button
+            variant="contained"
+            className="mt-3"
+            onClick={handleStartGame}
+          >
+            Rozpocznij grę
+          </Button>
+        )}
         <CardsSelection
           selectedCards={selectedCards}
           isHost={isHost}

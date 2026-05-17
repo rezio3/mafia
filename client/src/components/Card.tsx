@@ -30,9 +30,12 @@ const Card: React.FC<CardPropsType> = ({
   return (
     <>
       <div
-        className={`role-card ${isSelected && "card-selected"}`}
+        className={`role-card ${isSelected ? "card-selected" : ""}`}
         onClick={handleCardClick}
-        style={{ cursor: handleCardClick ? "pointer" : "default" }}
+        style={{
+          cursor: handleCardClick ? "pointer" : "default",
+          height: isSmall ? "70px" : undefined,
+        }}
       >
         <div
           className="card-badge"
