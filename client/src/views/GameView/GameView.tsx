@@ -33,7 +33,10 @@ const GameView: React.FC<GameViewPropsType> = ({
       {isHost ? (
         <HostGameView players={players} />
       ) : (
-        <PlayerGameView playerCard={currentPlayerCard} />
+        <PlayerGameView
+          playerCardName={currentPlayerCard}
+          playerName={player?.nickname}
+        />
       )}
     </Wrapper>
   );

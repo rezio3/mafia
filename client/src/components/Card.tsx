@@ -8,13 +8,15 @@ import { CardModal } from "./CardModal";
 type CardPropsType = {
   card: CardType;
   isSelected: boolean;
-  handleCardClick: () => void;
+  handleCardClick?: () => void;
+  isSmall?: boolean;
 };
 
 const Card: React.FC<CardPropsType> = ({
   card,
   isSelected,
   handleCardClick,
+  isSmall,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -30,23 +32,36 @@ const Card: React.FC<CardPropsType> = ({
       <div
         className={`role-card ${isSelected && "card-selected"}`}
         onClick={handleCardClick}
+        style={{ cursor: handleCardClick ? "pointer" : "default" }}
       >
         <div
           className="card-badge"
           style={{ backgroundColor: getBadgeColor(card.fraction) }}
         />
         <div
-          style={{ padding: "4px 4px", height: "100%", width: "100%" }}
+          style={{
+            padding: isSmall ? "4px 4px" : "8px 8px 16px",
+            height: "100%",
+            width: "100%",
+          }}
           className="d-flex flex-column justify-content-between"
         >
           <div>
             <Typography
               variant="h6"
               className="text-center"
-              style={{ fontSize: 10, fontWeight: 700 }}
+              style={{ fontSize: isSmall ? 10 : 24, fontWeight: 700 }}
             >
               {card.name}
             </Typography>
+            {!isSmall && (
+              <Typography
+                className="text-center mb-3"
+                style={{ fontSize: 14, fontWeight: 400 }}
+              >
+                {card.note}
+              </Typography>
+            )}
           </div>
           <div className="d-flex justify-content-center">
             <button

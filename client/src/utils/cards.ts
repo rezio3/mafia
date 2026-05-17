@@ -119,7 +119,8 @@ export const cards = [
     name: "Wariat",
     fraction: RoleFraction.City,
     note: "Zabija 1 os. (1)",
-    description: "W dowolnym momencie gry może zabić jedną osobę.",
+    description:
+      "W dowolnym momencie gry może zabić jedną osobę. Jeśli zrobi to w dzień - ujawni wszystkim swoją funkcję. W nocy pozostaje anonimowy. Może użyć raz.",
   },
   {
     name: "Żyd",

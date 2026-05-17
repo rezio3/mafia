@@ -35,6 +35,7 @@ const CardsSelection: React.FC<CardsSelectionPropsType> = ({
               isSelected={isSelected}
               handleCardClick={() => handleCardToggle(card.name)}
               key={card.name + index}
+              isSmall
             />
           );
         })}
