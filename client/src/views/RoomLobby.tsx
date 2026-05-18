@@ -4,6 +4,8 @@ import Wrapper from "../components/Wrapper";
 import type { Player } from "../utils/types";
 import CardsSelection from "../components/CardsSelection";
 import socket from "../socket";
+import ConfirmationModal from "../components/ConfirmationModal";
+import { useState } from "react";
 
 type RoomLobbyPropsType = {
   roomCode: string;
@@ -20,6 +22,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   handleLeaveRoom,
   selectedCards,
 }) => {
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const currentPlayerId = localStorage.getItem("userId");
   const handleStartGame = () => {
     if (selectedCards.length === players.length && isHost) {
@@ -30,50 +33,65 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
     }
   };
 
+  const confirmToLeaveHandler = () => {
+    handleLeaveRoom();
+  };
+
   return (
-    <Wrapper>
-      <div className="d-flex flex-column align-items-center gap-1">
-        {isHost && (
-          <Typography variant="h6" color="primary">
-            Jesteś prowadzącym
-          </Typography>
-        )}
-        <Header variant="h4">Twój pokój: {roomCode}</Header>
-        <Button onClick={handleLeaveRoom} variant="contained" color="secondary">
-          Wyjdź z pokoju
-        </Button>
-        <div className="mt-2" />
-        <Header variant="h6">Liczba graczy: {players.length}</Header>
-        <div className="d-flex flex-column w-100 bg-player-list">
-          {players.length < 1
-            ? "Trochę tu pusto..."
-            : players.map((player: Player, index) => (
-                <Typography
-                  color={
-                    player.id === currentPlayerId ? "primary" : "secondary"
-                  }
-                  key={player.id}
-                >
-                  {index + 1}. {player.nickname}
-                </Typography>
-              ))}
-        </div>
-        {isHost && (
+    <>
+      <Wrapper>
+        <div className="d-flex flex-column align-items-center gap-1">
+          {isHost && (
+            <Typography variant="h6" color="primary">
+              Jesteś prowadzącym
+            </Typography>
+          )}
+          <Header variant="h4">Twój pokój: {roomCode}</Header>
           <Button
+            onClick={() => setIsConfirmationModalOpen(true)}
             variant="contained"
-            className="mt-3"
-            onClick={handleStartGame}
+            color="secondary"
           >
-            Rozpocznij grę
+            Wyjdź z pokoju
           </Button>
-        )}
-        <CardsSelection
-          selectedCards={selectedCards}
-          isHost={isHost}
-          roomCode={roomCode}
-        />
-      </div>
-    </Wrapper>
+          <div className="mt-2" />
+          <Header variant="h6">Liczba graczy: {players.length}</Header>
+          <div className="d-flex flex-column w-100 bg-player-list">
+            {players.length < 1
+              ? "Trochę tu pusto..."
+              : players.map((player: Player, index) => (
+                  <Typography
+                    color={
+                      player.id === currentPlayerId ? "primary" : "secondary"
+                    }
+                    key={player.id}
+                  >
+                    {index + 1}. {player.nickname}
+                  </Typography>
+                ))}
+          </div>
+          {isHost && (
+            <Button
+              variant="contained"
+              className="mt-3"
+              onClick={handleStartGame}
+            >
+              Rozpocznij grę
+            </Button>
+          )}
+          <CardsSelection
+            selectedCards={selectedCards}
+            isHost={isHost}
+            roomCode={roomCode}
+          />
+        </div>
+      </Wrapper>
+      <ConfirmationModal
+        handleClose={() => setIsConfirmationModalOpen(false)}
+        open={isConfirmationModalOpen}
+        onConfirm={confirmToLeaveHandler}
+      />
+    </>
   );
 };
 

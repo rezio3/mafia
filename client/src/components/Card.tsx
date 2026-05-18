@@ -34,7 +34,7 @@ const Card: React.FC<CardPropsType> = ({
         onClick={handleCardClick}
         style={{
           cursor: handleCardClick ? "pointer" : "default",
-          height: isSmall ? "70px" : undefined,
+          height: isSmall ? "78px" : undefined,
         }}
       >
         <div
