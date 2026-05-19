@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./global.scss";
+import "./background.scss";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme/ThemeProvider";
 import MainMenu from "./views/MainMenu";
@@ -116,26 +117,28 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      {!roomCode ? (
-        <MainMenu
-          createRoomOnClick={handleCreateRoom}
-          joinRoomOnClick={handleJoinRoom}
-        />
-      ) : gameStarted ? (
-        <GameView
-          isHost={isHost}
-          players={players}
-          handleLeaveRoom={handleLeaveRoom}
-        />
-      ) : (
-        <RoomLobby
-          roomCode={roomCode}
-          players={players}
-          isHost={isHost}
-          handleLeaveRoom={handleLeaveRoom}
-          selectedCards={selectedCards}
-        />
-      )}
+      <div className="background-wrapper">
+        {!roomCode ? (
+          <MainMenu
+            createRoomOnClick={handleCreateRoom}
+            joinRoomOnClick={handleJoinRoom}
+          />
+        ) : gameStarted ? (
+          <GameView
+            isHost={isHost}
+            players={players}
+            handleLeaveRoom={handleLeaveRoom}
+          />
+        ) : (
+          <RoomLobby
+            roomCode={roomCode}
+            players={players}
+            isHost={isHost}
+            handleLeaveRoom={handleLeaveRoom}
+            selectedCards={selectedCards}
+          />
+        )}
+      </div>
     </ThemeProvider>
   );
 }

@@ -53,7 +53,9 @@ export const CardModal: React.FC<CardModalPropsType> = ({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom>{card.description}</Typography>
+          <Typography gutterBottom className="text-sans-serif">
+            {card.description}
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

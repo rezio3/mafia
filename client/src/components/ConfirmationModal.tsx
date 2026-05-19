@@ -53,7 +53,7 @@ const ConfirmationModal: React.FC<CardModalPropsType> = ({
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom>
+          <Typography gutterBottom className="text-sans-serif">
             Czy na pewno chcesz wyjść z pokoju?
           </Typography>
         </DialogContent>

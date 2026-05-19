@@ -6,6 +6,7 @@ import CardsSelection from "../components/CardsSelection";
 import socket from "../socket";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";
+import SnackbarAlert, { type SnackbarState } from "../components/SnackbarAlert";
 
 type RoomLobbyPropsType = {
   roomCode: string;
@@ -23,18 +24,44 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   selectedCards,
 }) => {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState<SnackbarState>({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+    message: "",
+  });
   const currentPlayerId = localStorage.getItem("userId");
   const handleStartGame = () => {
-    if (selectedCards.length === players.length && isHost) {
+    if (
+      selectedCards.length === players.length &&
+      isHost &&
+      players.length > 0
+    ) {
       console.log("rozpoczynam gre");
       socket.emit("start_game", { roomCode });
     } else {
-      console.log("Liczba kart musi być taka sama jak liczba graczy.");
+      if (players.length === 0) {
+        setSnackbar({
+          ...snackbar,
+          open: true,
+          message: "Nie możesz rozpocząć gry bez graczy",
+        });
+      } else if (selectedCards.length !== players.length) {
+        setSnackbar({
+          ...snackbar,
+          open: true,
+          message: "Liczba kart musi być taka sama jak liczba graczy",
+        });
+      }
     }
   };
 
   const confirmToLeaveHandler = () => {
     handleLeaveRoom();
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   return (
@@ -90,6 +117,10 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
         handleClose={() => setIsConfirmationModalOpen(false)}
         open={isConfirmationModalOpen}
         onConfirm={confirmToLeaveHandler}
+      />
+      <SnackbarAlert
+        handleCloseSnackbar={handleCloseSnackbar}
+        snackbar={snackbar}
       />
     </>
   );
