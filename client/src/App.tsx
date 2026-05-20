@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import "./global.scss";
-import "./background.scss";
+import "./style/global.scss";
+import "./style/background.scss";
+import "./style/loading.scss";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme/ThemeProvider";
 import MainMenu from "./views/MainMenu";
@@ -9,6 +10,9 @@ import RoomLobby from "./views/RoomLobby";
 import type { Player } from "./utils/types";
 import { v4 as uuidv4 } from "uuid";
 import GameView from "./views/GameView/GameView";
+import Footer from "./components/Footer/Footer";
+import { CircularProgress } from "@mui/material";
+import Header from "./components/Header";
 
 function App() {
   const [roomCode, setRoomCode] = useState(null);
@@ -16,15 +20,20 @@ function App() {
   const [isHost, setIsHost] = useState(false);
   const [selectedCards, setSelectedCards] = useState<string[]>([]);
   const [gameStarted, setGameStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => {
+    return !!localStorage.getItem("roomCode");
+  });
 
   const userId = localStorage.getItem("userId") || uuidv4();
   localStorage.setItem("userId", userId);
 
   const handleCreateRoom = () => {
+    setIsLoading(true);
     socket.emit("create_room", { userId });
   };
 
   const handleJoinRoom = (code: string, nickname: string) => {
+    setIsLoading(true);
     socket.emit("join_room", { roomCode: code, nickname, userId });
   };
 
@@ -46,6 +55,7 @@ function App() {
     socket.on("room_created", (code) => {
       setRoomCode(code);
       setIsHost(true);
+      setIsLoading(false);
       localStorage.setItem("roomCode", code);
       localStorage.setItem("isHost", "true");
     });
@@ -58,12 +68,14 @@ function App() {
         if (roomGameStarted) setGameStarted(roomGameStarted);
         localStorage.setItem("roomCode", roomCode);
         if (nickname) localStorage.setItem("nickname", nickname);
+        setIsLoading(false);
       },
     );
 
     socket.on("rejoin_failed", () => {
       localStorage.clear();
       setRoomCode(null);
+      setIsLoading(false);
     });
 
     socket.on("update_players", (playersList) => {
@@ -117,7 +129,8 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="background-wrapper">
+      <div className="app-wrapper">
+        <div className="background-illustration" />
         {!roomCode ? (
           <MainMenu
             createRoomOnClick={handleCreateRoom}
@@ -137,6 +150,17 @@ function App() {
             handleLeaveRoom={handleLeaveRoom}
             selectedCards={selectedCards}
           />
+        )}
+        <Footer />
+        {isLoading && (
+          <div className="full-screen-loader">
+            <div className="loader-content">
+              <CircularProgress color="primary" size={60} />
+              <Header variant="h5" className="mt-3">
+                ŁĄCZENIE Z POKOJEM...
+              </Header>
+            </div>
+          </div>
         )}
       </div>
     </ThemeProvider>

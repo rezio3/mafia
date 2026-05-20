@@ -67,7 +67,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   return (
     <>
       <Wrapper>
-        <div className="d-flex flex-column align-items-center gap-1">
+        <div className="d-flex flex-column align-items-center gap-1 mt-5">
           {isHost && (
             <Typography variant="h6" color="primary">
               Jesteś prowadzącym

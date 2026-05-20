@@ -28,7 +28,7 @@ const GameView: React.FC<GameViewPropsType> = ({
   };
   return (
     <>
-      <Wrapper>
+      <Wrapper className="mt-5">
         <Button
           onClick={() => setIsConfirmationModalOpen(true)}
           variant="contained"

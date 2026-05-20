@@ -6,7 +6,6 @@ import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
 import TagIcon from "@mui/icons-material/Tag";
 import LoginIcon from "@mui/icons-material/Login";
-import Footer from "../components/Footer";
 
 type MainMenuPropsType = {
   createRoomOnClick: () => void;
@@ -60,8 +59,8 @@ const MainMenu: React.FC<MainMenuPropsType> = ({
           variant="h5"
           className="mt-4 d-flex align-items-center text-center"
         >
-          <div className="decoration-line" />
-          Dołącz do pokoju <div className="decoration-line" />
+          <div className="decoration-white-line" />
+          Dołącz do pokoju <div className="decoration-white-line" />
         </Header>
         <TextField
           label={
@@ -105,7 +104,6 @@ const MainMenu: React.FC<MainMenuPropsType> = ({
           <LoginIcon /> Dołącz
         </Button>
       </div>
-      <Footer />
     </Wrapper>
   );
 };
