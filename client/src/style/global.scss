@@ -17,6 +17,7 @@ body {
 #root {
   width: 100%;
 }
+
 .app-wrapper {
   min-height: 92vh;
   display: flex;
@@ -28,6 +29,7 @@ body {
 p {
   font-family: "Cinzel", serif !important;
 }
+
 .margin-off {
   margin: 0;
 }
@@ -46,48 +48,10 @@ p {
   color: rgb(174, 174, 174);
 }
 
-.wrapper {
-  width: 600px;
-  max-width: 90vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-}
-
 .bg-player-list {
   background-color: #212336;
   padding: 8px 20px;
   border-radius: 15px;
-}
-
-.small-cards-container {
-  margin-bottom: 26px;
-  max-width: 310px;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.role-card {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid gray;
-  border-radius: 8px;
-  overflow: hidden;
-  user-select: none;
-  transition: 0.1s;
-}
-.card-badge {
-  width: 100%;
-  height: 8px;
-}
-
-.card-selected {
-  background-color: #618833;
 }
 
 .button-no-styles {
@@ -111,15 +75,17 @@ p {
   margin: 12px 0;
   border-bottom: 1px solid gray;
 }
+
 .divider:last-child {
   display: none;
 }
 
-.decoration-white- line {
+.decoration-white-line {
   margin: 0 14px;
   width: 20px;
   border-top: 1px solid white;
 }
+
 .decoration-gray-line {
   margin: 0 10px;
   width: 20px;

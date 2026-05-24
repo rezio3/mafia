@@ -1,0 +1,20 @@
+.role-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid gray;
+  border-radius: 8px;
+  overflow: hidden;
+  user-select: none;
+  transition: 0.1s;
+
+  .card-badge {
+    width: 100%;
+    height: 8px;
+  }
+}
+
+.card-selected {
+  background-color: #618833;
+}

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import Wrapper from "../../components/Wrapper";
+import Wrapper from "../../components/Wrapper/Wrapper";
 import type { Player } from "../../utils/types";
 import PlayerGameView from "./PlayerGameView";
 import HostGameView from "./HostGameView";

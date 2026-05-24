@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import type { Player } from "../../utils/types";
 import { cards, type CardType } from "../../utils/cards";
 import Header from "../../components/Header";
-import Card from "../../components/Card";
+import Card from "../../components/Card/Card";
 
 type HostGameViewPropsType = {
   players: Player[];

@@ -1,9 +1,10 @@
 import { Typography } from "@mui/material";
-import { type CardType } from "../utils/cards";
+import { type CardType } from "../../utils/cards";
 import { useState } from "react";
-import { getBadgeColor } from "../utils/getBadgeCardColor";
+import { getBadgeColor } from "../../utils/getBadgeCardColor";
 import InfoIcon from "@mui/icons-material/Info";
 import { CardModal } from "./CardModal";
+import "./card.scss";
 
 type CardPropsType = {
   card: CardType;
@@ -27,6 +28,7 @@ const Card: React.FC<CardPropsType> = ({
     e.stopPropagation();
     setModalOpen(true);
   };
+
   return (
     <>
       <div
@@ -45,9 +47,8 @@ const Card: React.FC<CardPropsType> = ({
           style={{
             padding: isSmall ? "4px 4px" : "8px 8px 16px",
             height: "100%",
-            width: "100%",
           }}
-          className="d-flex flex-column justify-content-between"
+          className="d-flex flex-column justify-content-between "
         >
           <div>
             <Typography

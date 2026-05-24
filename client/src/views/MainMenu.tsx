@@ -1,5 +1,5 @@
 import { Button, TextField, Typography } from "@mui/material";
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../components/Wrapper/Wrapper";
 import Header from "../components/Header";
 import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";

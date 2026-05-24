@@ -1,8 +1,8 @@
 import { Button, Typography } from "@mui/material";
 import Header from "../components/Header";
-import Wrapper from "../components/Wrapper";
+import Wrapper from "../components/Wrapper/Wrapper";
 import type { Player } from "../utils/types";
-import CardsSelection from "../components/CardsSelection";
+import CardsSelection from "../components/CardsSelection/CardsSelection";
 import socket from "../socket";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";

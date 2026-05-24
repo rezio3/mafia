@@ -1,4 +1,4 @@
-import Card from "../../components/Card";
+import Card from "../../components/Card/Card";
 import Header from "../../components/Header";
 import { cards, type CardType } from "../../utils/cards";
 

@@ -1,8 +1,9 @@
-import { cards, type CardType } from "../utils/cards";
-import Card from "./Card";
-import socket from "../socket";
-import FractionColorLegend from "./FractionColorLegend";
-import Header from "./Header";
+import { cards, type CardType } from "../../utils/cards";
+import Card from "../Card/Card";
+import socket from "../../socket";
+import FractionColorLegend from "../FractionColorLegend";
+import Header from "../Header";
+import "./cardsSelections.scss";
 
 type CardsSelectionPropsType = {
   selectedCards: string[];

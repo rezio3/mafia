@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./style/global.scss";
 import "./style/background.scss";
-import "./style/loading.scss";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme/ThemeProvider";
 import MainMenu from "./views/MainMenu";
@@ -11,8 +10,7 @@ import type { Player } from "./utils/types";
 import { v4 as uuidv4 } from "uuid";
 import GameView from "./views/GameView/GameView";
 import Footer from "./components/Footer/Footer";
-import { CircularProgress } from "@mui/material";
-import Header from "./components/Header";
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 
 function App() {
   const [roomCode, setRoomCode] = useState(null);
@@ -152,16 +150,7 @@ function App() {
           />
         )}
         <Footer />
-        {isLoading && (
-          <div className="full-screen-loader">
-            <div className="loader-content">
-              <CircularProgress color="primary" size={60} />
-              <Header variant="h5" className="mt-3">
-                ŁĄCZENIE Z POKOJEM...
-              </Header>
-            </div>
-          </div>
-        )}
+        {isLoading && <LoadingScreen loadingText="ŁĄCZENIE Z POKOJEM..." />}
       </div>
     </ThemeProvider>
   );

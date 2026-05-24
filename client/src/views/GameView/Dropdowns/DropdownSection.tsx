@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Header from "../../../components/Header";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Card from "../../../components/Card";
+import Card from "../../../components/Card/Card";
 import type { CardType } from "../../../utils/cards";
 import { Typography } from "@mui/material";
 import { manualsForPlayers } from "../../../utils/manuals";

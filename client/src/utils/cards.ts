@@ -1,3 +1,10 @@
+export type CardType = {
+  name: string;
+  fraction: RoleFraction;
+  note: string;
+  description: string;
+};
+
 export const RoleFraction = {
   Mafia: "Mafia",
   Police: "Policja",
@@ -6,13 +13,6 @@ export const RoleFraction = {
 } as const;
 
 export type RoleFraction = (typeof RoleFraction)[keyof typeof RoleFraction];
-
-export type CardType = {
-  name: string;
-  fraction: RoleFraction;
-  note: string;
-  description: string;
-};
 
 export const cards = [
   {
