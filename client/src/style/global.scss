@@ -28,6 +28,10 @@ body {
 p {
   font-family: "Cinzel", serif !important;
 }
+.margin-off {
+  margin: 0;
+}
+
 .text-sans-serif {
   font-family: "Montserrat", sans-serif !important;
 }
@@ -57,8 +61,8 @@ p {
   border-radius: 15px;
 }
 
-.cards-selection-container {
-  margin-bottom: 100px;
+.small-cards-container {
+  margin-bottom: 26px;
   max-width: 310px;
   width: 100%;
   display: grid;
@@ -103,6 +107,7 @@ p {
 
 .divider {
   width: 100%;
+  background-color: #fff;
   margin: 12px 0;
   border-bottom: 1px solid gray;
 }
@@ -119,4 +124,27 @@ p {
   margin: 0 10px;
   width: 20px;
   border-top: 1px solid rgb(174, 174, 174);
+}
+
+.dropdownButton {
+  width: 100%;
+  padding: 15px;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.dropdown-animation-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease-out;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dropdown-animation-wrapper.is-open {
+  grid-template-rows: 1fr;
+}
+
+.dropdown-content-inner {
+  width: 100% !important;
 }

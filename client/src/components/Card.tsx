@@ -7,7 +7,7 @@ import { CardModal } from "./CardModal";
 
 type CardPropsType = {
   card: CardType;
-  isSelected: boolean;
+  isSelected?: boolean;
   handleCardClick?: () => void;
   isSmall?: boolean;
 };

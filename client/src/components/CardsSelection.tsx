@@ -26,7 +26,7 @@ const CardsSelection: React.FC<CardsSelectionPropsType> = ({
         Liczba wybranych kart: {selectedCards.length}
       </Header>
       <FractionColorLegend />
-      <div className="cards-selection-container">
+      <div className="small-cards-container">
         {cards.map((card, index) => {
           const isSelected = selectedCards.includes(card.name);
           return (

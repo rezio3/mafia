@@ -26,7 +26,7 @@ const HostGameView: React.FC<HostGameViewPropsType> = ({ players }) => {
             >
               <Typography>{player.nickname}</Typography>
               <div style={{ width: "100px" }}>
-                <Card card={card as CardType} isSelected={false} isSmall />
+                <Card card={card as CardType} isSmall />
               </div>
             </div>
             <div className="divider" />

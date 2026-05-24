@@ -37,7 +37,6 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
       isHost &&
       players.length > 0
     ) {
-      console.log("rozpoczynam gre");
       socket.emit("start_game", { roomCode });
     } else {
       if (players.length === 0) {
