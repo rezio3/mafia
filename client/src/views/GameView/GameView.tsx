@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import Wrapper from "../../components/Wrapper/Wrapper";
 import type { Player } from "../../utils/types";
 import PlayerGameView from "./PlayerGameView";
@@ -6,6 +5,7 @@ import HostGameView from "./HostGameView";
 import { useState } from "react";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import { cards, type CardType } from "../../utils/cards";
+import ButtonCustom from "../../components/Button";
 
 type GameViewPropsType = {
   isHost: boolean;
@@ -34,14 +34,14 @@ const GameView: React.FC<GameViewPropsType> = ({
   return (
     <>
       <Wrapper className="mt-5">
-        <Button
-          onClick={() => setIsConfirmationModalOpen(true)}
+        <ButtonCustom
           variant="contained"
-          color="secondary"
+          onClick={() => setIsConfirmationModalOpen(true)}
           className="mb-3"
+          color="secondary"
         >
           Wyjdź z pokoju
-        </Button>
+        </ButtonCustom>
         {isHost ? (
           <HostGameView players={players} />
         ) : (

@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import Wrapper from "../components/Wrapper/Wrapper";
 import Header from "../components/Header";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import PersonIcon from "@mui/icons-material/Person";
 import TagIcon from "@mui/icons-material/Tag";
 import LoginIcon from "@mui/icons-material/Login";
+import ButtonCustom from "../components/Button";
 
 type MainMenuPropsType = {
   createRoomOnClick: () => void;
@@ -45,15 +46,14 @@ const MainMenu: React.FC<MainMenuPropsType> = ({
         <Typography className="mb-4 text-gray">
           Zdrada. Kłamstwo. Przeżycie.
         </Typography>
-        <Button
-          onClick={createRoomOnClick}
+        <ButtonCustom
           variant="contained"
-          color="primary"
-          className="d-flex align-items-center gap-1"
-          style={{ paddingLeft: "8px" }}
+          onClick={createRoomOnClick}
+          paddingLeft="8px"
+          gap="1"
         >
           <AddIcon /> Stwórz pokój
-        </Button>
+        </ButtonCustom>
         <div className="mb-5 mt-5" />
         <Header
           variant="h5"
@@ -94,15 +94,13 @@ const MainMenu: React.FC<MainMenuPropsType> = ({
           helperText={error.inputCodeError}
         />
         <div className="mt-2" />
-        <Button
-          onClick={handleJoinRoomButton}
+        <ButtonCustom
           variant="contained"
-          color="primary"
-          className="d-flex align-items-center gap-2"
-          style={{ paddingLeft: "8px" }}
+          onClick={handleJoinRoomButton}
+          paddingLeft="8px"
         >
           <LoginIcon /> Dołącz
-        </Button>
+        </ButtonCustom>
       </div>
     </Wrapper>
   );

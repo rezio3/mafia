@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import Header from "../components/Header";
 import Wrapper from "../components/Wrapper/Wrapper";
 import type { Player } from "../utils/types";
@@ -7,6 +7,7 @@ import socket from "../socket";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";
 import SnackbarAlert, { type SnackbarState } from "../components/SnackbarAlert";
+import ButtonCustom from "../components/Button";
 
 type RoomLobbyPropsType = {
   roomCode: string;
@@ -73,13 +74,13 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
             </Typography>
           )}
           <Header variant="h4">Twój pokój: {roomCode}</Header>
-          <Button
+          <ButtonCustom
             onClick={() => setIsConfirmationModalOpen(true)}
             variant="contained"
             color="secondary"
           >
             Wyjdź z pokoju
-          </Button>
+          </ButtonCustom>
           <div className="mt-2" />
           <Header variant="h6">Liczba graczy: {players.length}</Header>
           <div className="d-flex flex-column w-100 bg-player-list">
@@ -97,13 +98,13 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
                 ))}
           </div>
           {isHost && (
-            <Button
+            <ButtonCustom
               variant="contained"
               className="mt-3"
               onClick={handleStartGame}
             >
               Rozpocznij grę
-            </Button>
+            </ButtonCustom>
           )}
           <CardsSelection
             selectedCards={selectedCards}

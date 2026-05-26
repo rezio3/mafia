@@ -3,9 +3,9 @@ import Card from "../../components/Card/Card";
 import Header from "../../components/Header";
 import { cards, type CardType } from "../../utils/cards";
 import DropdownSection from "./Dropdowns/DropdownSection";
-import { Button } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import ButtonCustom from "../../components/Button";
 
 type PlayerGameViewPropsType = {
   playerCardName: string | undefined | null;
@@ -36,14 +36,14 @@ const PlayerGameView: React.FC<PlayerGameViewPropsType> = ({
             card={card as CardType}
             isSelected={false}
             actionButton={
-              <Button
-                className="d-flex align-items-center gap-2 mt-4"
-                style={{ paddingLeft: "12px" }}
-                variant="contained"
-                onClick={() => setShowCard(false)}
-              >
-                <VisibilityOffIcon /> Ukryj
-              </Button>
+              <div className="mt-4">
+                <ButtonCustom
+                  variant="contained"
+                  onClick={() => setShowCard(false)}
+                >
+                  <VisibilityOffIcon /> Ukryj
+                </ButtonCustom>
+              </div>
             }
           />
         ) : (
@@ -51,14 +51,9 @@ const PlayerGameView: React.FC<PlayerGameViewPropsType> = ({
             className="role-card justify-content-center"
             style={{ height: "140px" }}
           >
-            <Button
-              className="d-flex align-items-center gap-2"
-              style={{ paddingLeft: "12px" }}
-              variant="contained"
-              onClick={() => setShowCard(true)}
-            >
+            <ButtonCustom variant="contained" onClick={() => setShowCard(true)}>
               <VisibilityIcon className="mr-2" /> Pokaż
-            </Button>
+            </ButtonCustom>
           </div>
         )}
       </div>
