@@ -1,0 +1,22 @@
+.dropdownButton {
+  width: 100%;
+  padding: 15px;
+  padding-left: 0;
+  cursor: pointer;
+}
+
+.dropdown-animation-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease-out;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dropdown-animation-wrapper.is-open {
+  grid-template-rows: 1fr;
+}
+
+.dropdown-content-inner {
+  width: 100% !important;
+}

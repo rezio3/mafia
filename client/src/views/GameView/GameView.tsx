@@ -21,9 +21,9 @@ const GameView: React.FC<GameViewPropsType> = ({
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const currentPlayerId = localStorage.getItem("userId");
   const player = players.find((player) => player.id === currentPlayerId);
-  const inGameCards: CardType[] = players
-    .map((p) => cards.find((c) => c.name === p.role))
-    .filter((card): card is CardType => !!card);
+  const inGameCards: CardType[] = cards.filter((card) =>
+    players.some((player) => player.role === card.name),
+  );
 
   const currentPlayerCard = player?.role;
 

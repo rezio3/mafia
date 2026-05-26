@@ -11,6 +11,7 @@ type CardPropsType = {
   isSelected?: boolean;
   handleCardClick?: () => void;
   isSmall?: boolean;
+  actionButton?: React.ReactNode;
 };
 
 const Card: React.FC<CardPropsType> = ({
@@ -18,6 +19,7 @@ const Card: React.FC<CardPropsType> = ({
   isSelected,
   handleCardClick,
   isSmall,
+  actionButton,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -48,7 +50,7 @@ const Card: React.FC<CardPropsType> = ({
             padding: isSmall ? "4px 4px" : "8px 8px 16px",
             height: "100%",
           }}
-          className="d-flex flex-column justify-content-between "
+          className="d-flex flex-column justify-content-between align-items-center"
         >
           <div>
             <Typography
@@ -75,6 +77,7 @@ const Card: React.FC<CardPropsType> = ({
               <InfoIcon />
             </button>
           </div>
+          {actionButton}
         </div>
       </div>
       <CardModal handleClose={handleClose} open={modalOpen} card={card} />

@@ -5,6 +5,7 @@ import Card from "../../../components/Card/Card";
 import type { CardType } from "../../../utils/cards";
 import { Typography } from "@mui/material";
 import { manualsForPlayers } from "../../../utils/manuals";
+import "./dropdowns.scss";
 
 type DropdownSectionPropsType = {
   inGameCards: CardType[];
@@ -72,7 +73,12 @@ const DropdownSection: React.FC<DropdownSectionPropsType> = ({
             <ul>
               {manualsForPlayers.map((manual) => (
                 <li className="mb-2">
-                  <Typography className="text-sans-serif">{manual}</Typography>
+                  <Typography
+                    className="text-sans-serif"
+                    style={{ fontSize: "14px" }}
+                  >
+                    {manual}
+                  </Typography>
                 </li>
               ))}
             </ul>

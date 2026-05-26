@@ -1,7 +1,7 @@
 import { cards, type CardType } from "../../utils/cards";
 import Card from "../Card/Card";
 import socket from "../../socket";
-import FractionColorLegend from "../FractionColorLegend";
+import FractionColorLegend from "../FractionColorLegend/FractionColorLegend";
 import Header from "../Header";
 import "./cardsSelections.scss";
 

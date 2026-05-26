@@ -1,5 +1,6 @@
-import { RoleFraction } from "../utils/cards";
-import { getBadgeColor } from "../utils/getBadgeCardColor";
+import { RoleFraction } from "../../utils/cards";
+import { getBadgeColor } from "../../utils/getBadgeCardColor";
+import "./fractionColorLegend.scss";
 
 const FractionColorLegend = () => {
   return (
