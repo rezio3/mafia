@@ -1,0 +1,25 @@
+# ==========================================
+# BACKEND (Server)
+# ==========================================
+server/node_modules/
+server/dist/
+server/build/
+server/*.log
+server/.env
+
+# ==========================================
+# FRONTEND (Client)
+# ==========================================
+client/node_modules/
+client/dist/
+client/build/
+client/.env
+client/.env.local
+
+# ==========================================
+# SYSTEMOWE (Dla obu folderów)
+# ==========================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

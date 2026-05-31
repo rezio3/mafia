@@ -6,6 +6,7 @@ import { useState } from "react";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import { cards, type CardType } from "../../utils/cards";
 import ButtonCustom from "../../components/Button";
+import ChatIcon from "@mui/icons-material/Chat";
 
 type GameViewPropsType = {
   isHost: boolean;
@@ -51,6 +52,12 @@ const GameView: React.FC<GameViewPropsType> = ({
             inGameCards={inGameCards}
           />
         )}
+        <div
+          className="w-100 d-flex justify-content-end mt-5"
+          style={{ maxWidth: "400px", cursor: "pointer" }}
+        >
+          <ChatIcon sx={{ fontSize: 50 }} />
+        </div>
       </Wrapper>
       <ConfirmationModal
         handleClose={() => setIsConfirmationModalOpen(false)}
