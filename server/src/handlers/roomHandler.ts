@@ -13,6 +13,7 @@ export const registerRoomHandlers = (io: Server, socket: Socket) => {
       hostUserId: userId,
       players: [],
       gameStarted: false,
+      chats: [],
     };
     socket.join(roomCode);
     socket.emit("room_created", roomCode);
@@ -111,6 +112,9 @@ export const registerRoomHandlers = (io: Server, socket: Socket) => {
         socket.emit("update_selected_cards", room.selectedCards || []);
         socket.emit("join_success", response);
         io.to(roomCode).emit("update_players", room.players);
+        if (room.gameStarted && room.chats) {
+          socket.emit("update_chats", room.chats);
+        }
       } else {
         socket.emit("rejoin_failed");
       }
@@ -160,11 +164,59 @@ export const registerRoomHandlers = (io: Server, socket: Socket) => {
       player.role = cardsToDistribute[index]!;
     });
 
+    room.chats = room.players.map((player) => ({
+      userChatId: player.id,
+      messages: [],
+    }));
+
     room.gameStarted = true;
 
     io.to(roomCode).emit("game_started", {
       gameStarted: room.gameStarted,
       players: room.players,
+      chats: room.chats,
     });
   });
+
+  // Obsługa chatów
+  socket.on(
+    "send_chat_message",
+    ({
+      roomCode,
+      senderId,
+      recipientId,
+      message,
+    }: {
+      roomCode: string;
+      senderId: string;
+      recipientId: string;
+      message: string;
+    }) => {
+      const room = rooms[roomCode];
+      if (!room) return;
+
+      const isSenderHost = room.hostUserId === senderId;
+      const playerChatId = isSenderHost ? recipientId : senderId;
+
+      let chat = room.chats.find((c) => c.userChatId === playerChatId);
+
+      if (!chat) {
+        chat = { userChatId: playerChatId, messages: [] };
+        room.chats.push(chat);
+      }
+
+      chat.messages.push({
+        sender: isSenderHost ? "host" : "player",
+        message,
+        timestamp: Date.now(),
+      });
+
+      io.to(room.hostSocketId).emit("update_chats", room.chats);
+
+      const player = room.players.find((p) => p.id === playerChatId);
+      if (player) {
+        io.to(player.socketId).emit("update_chats", room.chats);
+      }
+    },
+  );
 };

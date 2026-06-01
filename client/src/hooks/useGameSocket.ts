@@ -9,6 +9,7 @@ export const useGameSocket = () => {
   const [isHost, setIsHost] = useState(false);
   const [selectedCards, setSelectedCards] = useState<string[]>([]);
   const [gameStarted, setGameStarted] = useState(false);
+  const [chats, setChats] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(() => {
     return !!localStorage.getItem("roomCode");
   });
@@ -80,9 +81,16 @@ export const useGameSocket = () => {
       setSelectedCards(cardsList);
     });
 
-    socket.on("game_started", ({ gameStarted, players: updatedPlayers }) => {
-      setPlayers(updatedPlayers);
-      setGameStarted(gameStarted);
+    socket.on(
+      "game_started",
+      ({ gameStarted, players: updatedPlayers, chats: initialChats }) => {
+        setPlayers(updatedPlayers);
+        setGameStarted(gameStarted);
+        if (initialChats) setChats(initialChats);
+      },
+    );
+    socket.on("update_chats", (updatedChats: any[]) => {
+      setChats(updatedChats);
     });
 
     if (savedRoomCode) {
@@ -117,6 +125,7 @@ export const useGameSocket = () => {
       socket.off("error");
       socket.off("update_selected_cards");
       socket.off("game_started");
+      socket.off("update_chats");
     };
   }, [userId]);
 
@@ -131,5 +140,12 @@ export const useGameSocket = () => {
     handleCreateRoom,
     handleJoinRoom,
     handleLeaveRoom,
+    chats,
+    hostUserId:
+      players.length > 0
+        ? localStorage.getItem("roomCode")
+          ? "pobierz_host_id"
+          : ""
+        : "",
   };
 };

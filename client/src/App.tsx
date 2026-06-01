@@ -20,6 +20,7 @@ function App() {
     handleCreateRoom,
     handleJoinRoom,
     handleLeaveRoom,
+    chats,
   } = useGameSocket();
 
   return (
@@ -36,6 +37,8 @@ function App() {
             isHost={isHost}
             players={players}
             handleLeaveRoom={handleLeaveRoom}
+            chats={chats}
+            roomCode={roomCode}
           />
         ) : (
           <RoomLobby

@@ -4,10 +4,11 @@ import Wrapper from "../components/Wrapper/Wrapper";
 import type { Player } from "../utils/types";
 import CardsSelection from "../components/CardsSelection/CardsSelection";
 import socket from "../socket";
-import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";
 import SnackbarAlert, { type SnackbarState } from "../components/SnackbarAlert";
 import ButtonCustom from "../components/Button";
+import LeaveRoomButton from "../components/LeaveRoomButton/LeaveRoomButton";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 
 type RoomLobbyPropsType = {
   roomCode: string;
@@ -24,7 +25,6 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
   handleLeaveRoom,
   selectedCards,
 }) => {
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [snackbar, setSnackbar] = useState<SnackbarState>({
     open: false,
     vertical: "top",
@@ -56,10 +56,6 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
     }
   };
 
-  const confirmToLeaveHandler = () => {
-    handleLeaveRoom();
-  };
-
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
   };
@@ -74,13 +70,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
             </Typography>
           )}
           <Header variant="h4">Twój pokój: {roomCode}</Header>
-          <ButtonCustom
-            onClick={() => setIsConfirmationModalOpen(true)}
-            variant="contained"
-            color="secondary"
-          >
-            Wyjdź z pokoju
-          </ButtonCustom>
+          <LeaveRoomButton handleLeaveRoom={handleLeaveRoom} />
           <div className="mt-2" />
           <Header variant="h6">Liczba graczy: {players.length}</Header>
           <div className="d-flex flex-column w-100 bg-player-list">
@@ -103,6 +93,7 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
               className="mt-3"
               onClick={handleStartGame}
             >
+              <PlayArrowIcon />
               Rozpocznij grę
             </ButtonCustom>
           )}
@@ -113,11 +104,6 @@ const RoomLobby: React.FC<RoomLobbyPropsType> = ({
           />
         </div>
       </Wrapper>
-      <ConfirmationModal
-        handleClose={() => setIsConfirmationModalOpen(false)}
-        open={isConfirmationModalOpen}
-        onConfirm={confirmToLeaveHandler}
-      />
       <SnackbarAlert
         handleCloseSnackbar={handleCloseSnackbar}
         snackbar={snackbar}

@@ -1,0 +1,61 @@
+.chat-button {
+  margin-left: auto;
+  margin-right: 14px;
+}
+
+.chat-button-new-message {
+  color: rgb(32, 244, 32);
+  animation: pulse-smooth-double 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+.sent-message-box {
+  max-width: 80%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: rgb(95, 95, 95);
+}
+.receive-message-box {
+  margin-left: auto;
+  max-width: 80%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: rgb(68, 68, 68);
+}
+
+@keyframes pulse-smooth-double {
+  // --- PIERWSZY IMPULS ---
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
+  }
+  9% {
+    transform: scale(1.1); // Delikatne powiększenie
+    opacity: 0.8;
+    filter: drop-shadow(0 0 8px rgba(32, 244, 32, 0.8)); // Poświata (neon)
+  }
+  18% {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
+  }
+
+  // --- DRUGI IMPULS ---
+  27% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    filter: drop-shadow(0 0 8px rgba(32, 244, 32, 0.8));
+  }
+  36% {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
+  }
+
+  // --- CISZA I CZEKANIE (reszta z 3 sekund) ---
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
+  }
+}

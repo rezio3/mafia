@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "../../components/Card/Card";
 import Header from "../../components/Header";
 import { cards, type CardType } from "../../utils/cards";
@@ -6,19 +6,52 @@ import DropdownSection from "./Dropdowns/DropdownSection";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import ButtonCustom from "../../components/Button";
+import ChatTrigger from "../../components/ChatComponents/ChatTrigger";
+import { ChatModal } from "../../components/ChatComponents/ChatModal";
+import type { ChatType } from "../../utils/types";
 
 type PlayerGameViewPropsType = {
   playerCardName: string | undefined | null;
   playerName: string | undefined | null;
   inGameCards: CardType[];
+  chats: ChatType[];
+  roomCode: string;
 };
 
 const PlayerGameView: React.FC<PlayerGameViewPropsType> = ({
   playerCardName,
   playerName,
   inGameCards,
+  chats,
+  roomCode,
 }) => {
   const [showCard, setShowCard] = useState(false);
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
+  const [hasNewMessage, setHasNewMessage] = useState(false);
+
+  const currentPlayerId = localStorage.getItem("userId");
+
+  const myChat = chats.find((chat) => chat.userChatId === currentPlayerId);
+  const currentMessagesLength = myChat ? myChat.messages.length : 0;
+
+  const prevMessagesLengthRef = useRef(0);
+
+  useEffect(() => {
+    if (currentMessagesLength > prevMessagesLengthRef.current) {
+      if (!isChatModalOpen) {
+        setHasNewMessage(true);
+      }
+    }
+
+    // Aktualizujemy referencję aktualną długością
+    prevMessagesLengthRef.current = currentMessagesLength;
+  }, [chats, isChatModalOpen, currentMessagesLength]);
+
+  // 3. Autorska funkcja otwierania czatu, która od razu gasi powiadomienie
+  const handleOpenChat = () => {
+    setIsChatModalOpen(true);
+    setHasNewMessage(false); // Gasimy pulsowanie
+  };
 
   const card = cards.find((card) => card.name === playerCardName);
 
@@ -58,6 +91,17 @@ const PlayerGameView: React.FC<PlayerGameViewPropsType> = ({
         )}
       </div>
       <DropdownSection inGameCards={inGameCards} />
+      <ChatTrigger openChat={handleOpenChat} newMessage={hasNewMessage} />
+      {isChatModalOpen && (
+        <ChatModal
+          isChatModalOpen={isChatModalOpen}
+          setIsChatModalOpen={setIsChatModalOpen}
+          chatId={currentPlayerId!}
+          chats={chats}
+          roomCode={roomCode}
+          playerNameToChat="prowadzącym"
+        />
+      )}
     </>
   );
 };
