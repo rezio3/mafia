@@ -43,14 +43,12 @@ const PlayerGameView: React.FC<PlayerGameViewPropsType> = ({
       }
     }
 
-    // Aktualizujemy referencję aktualną długością
     prevMessagesLengthRef.current = currentMessagesLength;
   }, [chats, isChatModalOpen, currentMessagesLength]);
 
-  // 3. Autorska funkcja otwierania czatu, która od razu gasi powiadomienie
   const handleOpenChat = () => {
     setIsChatModalOpen(true);
-    setHasNewMessage(false); // Gasimy pulsowanie
+    setHasNewMessage(false);
   };
 
   const card = cards.find((card) => card.name === playerCardName);
