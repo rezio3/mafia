@@ -15,15 +15,16 @@ export const useGameSocket = () => {
   });
 
   const userId = localStorage.getItem("userId") || uuidv4();
-  localStorage.setItem("userId", userId);
 
   const handleCreateRoom = () => {
+    localStorage.setItem("userId", userId);
     setIsLoading(true);
     setSelectedCards([]);
     socket.emit("create_room", { userId });
   };
 
   const handleJoinRoom = (code: string, nickname: string) => {
+    localStorage.setItem("userId", userId);
     setIsLoading(true);
     socket.emit("join_room", { roomCode: code, nickname, userId });
   };
