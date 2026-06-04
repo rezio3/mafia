@@ -12,27 +12,26 @@
   max-width: 80%;
   padding: 6px 10px;
   border-radius: 6px;
-  background-color: rgb(95, 95, 95);
+  background-color: rgb(105, 105, 105);
 }
 .receive-message-box {
   margin-left: auto;
   max-width: 80%;
   padding: 6px 10px;
   border-radius: 6px;
-  background-color: rgb(68, 68, 68);
+  background-color: rgb(78, 78, 78);
 }
 
 @keyframes pulse-smooth-double {
-  // --- PIERWSZY IMPULS ---
   0% {
     transform: scale(1);
     opacity: 1;
     filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
   }
   9% {
-    transform: scale(1.1); // Delikatne powiększenie
+    transform: scale(1.1);
     opacity: 0.8;
-    filter: drop-shadow(0 0 8px rgba(32, 244, 32, 0.8)); // Poświata (neon)
+    filter: drop-shadow(0 0 8px rgba(32, 244, 32, 0.8));
   }
   18% {
     transform: scale(1);
@@ -40,7 +39,6 @@
     filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
   }
 
-  // --- DRUGI IMPULS ---
   27% {
     transform: scale(1.1);
     opacity: 0.8;
@@ -52,7 +50,6 @@
     filter: drop-shadow(0 0 0px rgba(32, 244, 32, 0));
   }
 
-  // --- CISZA I CZEKANIE (reszta z 3 sekund) ---
   100% {
     transform: scale(1);
     opacity: 1;
