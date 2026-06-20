@@ -31,7 +31,6 @@ export const ChatModal: React.FC<ChatModalPropsType> = ({
   playerNameToChat,
 }) => {
   const [messageInputValue, setMessageInputValue] = useState("");
-  //   const [activeChat, setActiveChat] = useState<ChatType>();
 
   const isHost = localStorage.getItem("isHost") === "true";
   const currentUserId = localStorage.getItem("userId") || "";
@@ -41,10 +40,6 @@ export const ChatModal: React.FC<ChatModalPropsType> = ({
 
   const handleSendMessage = () => {
     if (!messageInputValue.trim()) return;
-
-    // Ustalamy logicznie odbiorcę (recipientId)
-    // Jeśli pisze Host -> odbiorcą jest gracz z chatId
-    // Jeśli pisze Gracz -> odbiorcą jest Host (backend sam to zweryfikuje, ale musimy coś podać)
     const recipientId = isHost ? chatId : "host";
 
     socket.emit("send_chat_message", {
@@ -54,7 +49,7 @@ export const ChatModal: React.FC<ChatModalPropsType> = ({
       message: messageInputValue.trim(),
     });
 
-    setMessageInputValue(""); // Czyścimy input natychmiast po wysłaniu
+    setMessageInputValue("");
   };
 
   const handleClose = () => {
