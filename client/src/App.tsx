@@ -8,6 +8,7 @@ import GameView from "./views/GameView/GameView";
 import Footer from "./components/Footer/Footer";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import { useGameSocket } from "./hooks/useGameSocket";
+import AdBanner from "./components/AdBanner/AdBanner";
 
 function App() {
   const {
@@ -49,6 +50,7 @@ function App() {
             selectedCards={selectedCards}
           />
         )}
+        <AdBanner />
         <Footer />
         {isLoading && <LoadingScreen loadingText="ŁĄCZENIE Z POKOJEM..." />}
       </div>
