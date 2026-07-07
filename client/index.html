@@ -10,10 +10,28 @@
       href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="manifest" href="/manifest.json" />
     <title>Mafia</title>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((reg) =>
+              console.log(
+                "Service Worker zarejestrowany pomyślnie!",
+                reg.scope,
+              ),
+            )
+            .catch((err) =>
+              console.log("Błąd rejestracji Service Workera:", err),
+            );
+        });
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
